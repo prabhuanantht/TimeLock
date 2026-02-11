@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-34:12
-INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-34:12
-INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-34:12
-INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-34:12
+ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-42:12
+INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-42:12
+INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-42:12
+INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:2:1-42:12
 MERGED from [androidx.databinding:viewbinding:8.2.0] /Users/ananth/.gradle/caches/8.10/transforms/1bba216a5bbd4c33c4dc5cf21c8e123b/transformed/jetified-viewbinding-8.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /Users/ananth/.gradle/caches/8.10/transforms/97315e9db85f651b2c30c230e3a730f9/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/ananth/.gradle/caches/8.10/transforms/33de6f685a71a816438532bf8355c19d/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -83,8 +83,8 @@ ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/Andro
 	android:name
 		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:11:22-78
 application
-ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:13:5-32:19
-INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:13:5-32:19
+ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:13:5-40:19
+INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:13:5-40:19
 MERGED from [com.google.android.material:material:1.11.0] /Users/ananth/.gradle/caches/8.10/transforms/97315e9db85f651b2c30c230e3a730f9/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /Users/ananth/.gradle/caches/8.10/transforms/97315e9db85f651b2c30c230e3a730f9/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/ananth/.gradle/caches/8.10/transforms/33de6f685a71a816438532bf8355c19d/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -135,6 +135,22 @@ category#android.intent.category.LAUNCHER
 ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:27:17-77
 	android:name
 		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:27:27-74
+service#com.timelock.service.SessionTimerService
+ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:31:9-37:19
+	android:enabled
+		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:33:13-35
+	android:exported
+		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:34:13-37
+	android:foregroundServiceType
+		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:35:13-55
+	android:name
+		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:32:13-56
+property
+ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:36:13-114
+	android:value
+		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:36:83-111
+	android:name
+		ADDED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml:36:23-82
 uses-sdk
 INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/ananth/.gemini/antigravity/scratch/TimeLock/app/src/main/AndroidManifest.xml

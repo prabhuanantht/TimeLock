@@ -28,6 +28,14 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".service.SessionTimerService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="feature_demo" />
+        </service>
+
         <!-- Service and Receiver placeholders -->
     </application>
 
