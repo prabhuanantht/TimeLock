@@ -4,20 +4,53 @@ package com.timelock.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
+import androidx.viewbinding.ViewBindings;
 import com.timelock.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
+import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   private final ConstraintLayout rootView;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView) {
+  @NonNull
+  public final Button btnStart;
+
+  @NonNull
+  public final LinearLayout controlPanel;
+
+  @NonNull
+  public final EditText etDuration;
+
+  @NonNull
+  public final EditText etPin;
+
+  @NonNull
+  public final RecyclerView rvApps;
+
+  @NonNull
+  public final TextView tvListHeader;
+
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnStart,
+      @NonNull LinearLayout controlPanel, @NonNull EditText etDuration, @NonNull EditText etPin,
+      @NonNull RecyclerView rvApps, @NonNull TextView tvListHeader) {
     this.rootView = rootView;
+    this.btnStart = btnStart;
+    this.controlPanel = controlPanel;
+    this.etDuration = etDuration;
+    this.etPin = etPin;
+    this.rvApps = rvApps;
+    this.tvListHeader = tvListHeader;
   }
 
   @Override
@@ -43,10 +76,50 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @NonNull
   public static ActivityMainBinding bind(@NonNull View rootView) {
-    if (rootView == null) {
-      throw new NullPointerException("rootView");
-    }
+    // The body of this method is generated in a way you would not otherwise write.
+    // This is done to optimize the compiled bytecode for size and performance.
+    int id;
+    missingId: {
+      id = R.id.btnStart;
+      Button btnStart = ViewBindings.findChildViewById(rootView, id);
+      if (btnStart == null) {
+        break missingId;
+      }
 
-    return new ActivityMainBinding((ConstraintLayout) rootView);
+      id = R.id.controlPanel;
+      LinearLayout controlPanel = ViewBindings.findChildViewById(rootView, id);
+      if (controlPanel == null) {
+        break missingId;
+      }
+
+      id = R.id.etDuration;
+      EditText etDuration = ViewBindings.findChildViewById(rootView, id);
+      if (etDuration == null) {
+        break missingId;
+      }
+
+      id = R.id.etPin;
+      EditText etPin = ViewBindings.findChildViewById(rootView, id);
+      if (etPin == null) {
+        break missingId;
+      }
+
+      id = R.id.rvApps;
+      RecyclerView rvApps = ViewBindings.findChildViewById(rootView, id);
+      if (rvApps == null) {
+        break missingId;
+      }
+
+      id = R.id.tvListHeader;
+      TextView tvListHeader = ViewBindings.findChildViewById(rootView, id);
+      if (tvListHeader == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((ConstraintLayout) rootView, btnStart, controlPanel,
+          etDuration, etPin, rvApps, tvListHeader);
+    }
+    String missingId = rootView.getResources().getResourceName(id);
+    throw new NullPointerException("Missing required view with ID: ".concat(missingId));
   }
 }
