@@ -1,5 +1,6 @@
 package com.timelock.ui
 
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -21,9 +22,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnStart: Button
     private lateinit var rvApps: RecyclerView
 
+    private lateinit var permissionPanel: android.widget.LinearLayout
+    private lateinit var controlPanel: android.widget.LinearLayout
+    private lateinit var btnEnableAdmin: Button
+    private lateinit var btnEnableAccessibility: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        permissionPanel = findViewById(R.id.permissionPanel)
+        controlPanel = findViewById(R.id.controlPanel)
+        btnEnableAdmin = findViewById(R.id.btnEnableAdmin)
+        btnEnableAccessibility = findViewById(R.id.btnEnableAccessibility)
 
         etDuration = findViewById(R.id.etDuration)
         etPin = findViewById(R.id.etPin)
@@ -31,33 +42,94 @@ class MainActivity : AppCompatActivity() {
         rvApps = findViewById(R.id.rvApps)
 
         setupAppList()
+        setupPermissionButtons()
 
         btnStart.setOnClickListener {
             startSession()
         }
-        
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkPermissions()
         checkSessionStatus()
+    }
+
+    private fun setupPermissionButtons() {
+        btnEnableAdmin.setOnClickListener {
+            val intent = Intent(android.app.admin.DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+            intent.putExtra(android.app.admin.DevicePolicyManager.EXTRA_DEVICE_ADMIN, getAdminComponentName())
+            intent.putExtra(android.app.admin.DevicePolicyManager.EXTRA_ADD_EXPLANATION, "TimeLock needs this to prevent uninstallation during sessions.")
+            startActivity(intent)
+        }
+
+        btnEnableAccessibility.setOnClickListener {
+            val intent = Intent(android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(intent)
+        }
+    }
+
+    private fun checkPermissions() {
+        val isAdmin = isAdminActive()
+        val isAccessibility = isAccessibilityServiceEnabled()
+
+        if (isAdmin && isAccessibility) {
+            permissionPanel.visibility = android.view.View.GONE
+            controlPanel.visibility = android.view.View.VISIBLE
+        } else {
+            permissionPanel.visibility = android.view.View.VISIBLE
+            controlPanel.visibility = android.view.View.GONE
+            
+            btnEnableAdmin.isEnabled = !isAdmin
+            btnEnableAccessibility.isEnabled = !isAccessibility
+            
+            if (isAdmin) btnEnableAdmin.text = "Device Admin Enabled" else btnEnableAdmin.text = "Enable Device Admin"
+            if (isAccessibility) btnEnableAccessibility.text = "Accessibility Enabled" else btnEnableAccessibility.text = "Enable Accessibility"
+        }
+    }
+
+    private fun isAdminActive(): Boolean {
+        val dpm = getSystemService(android.app.admin.DevicePolicyManager::class.java)
+        return dpm.isAdminActive(getAdminComponentName())
+    }
+
+    private fun getAdminComponentName(): ComponentName {
+        return ComponentName(this, com.timelock.receiver.TimeLockDeviceAdminReceiver::class.java)
+    }
+
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        val expectedComponentName = ComponentName(this, com.timelock.service.AppMonitorAccessibilityService::class.java)
+        
+        val enabledServicesSetting = android.provider.Settings.Secure.getString(
+            contentResolver,
+            android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+
+        val colonSplitter = android.text.TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServicesSetting)
+
+        while (colonSplitter.hasNext()) {
+            val componentNameString = colonSplitter.next()
+            val enabledComponent = ComponentName.unflattenFromString(componentNameString)
+            if (enabledComponent != null && enabledComponent == expectedComponentName)
+                return true
+        }
+        return false
     }
     
     private fun checkSessionStatus() {
         if (SessionManager.isSessionActive()) {
             btnStart.isEnabled = false
             btnStart.text = "SESSION ACTIVE"
-            // Ideally redirect to a status screen, but for now just disable
         }
     }
 
     private fun setupAppList() {
-        // Simple async loader or just run on main thread for MVP if list is small. 
-        // For production, use Coroutines/Threads.
         Thread {
             val intent = Intent(Intent.ACTION_MAIN, null)
             intent.addCategory(Intent.CATEGORY_LAUNCHER)
             val apps = packageManager.queryIntentActivities(intent, 0)
             
-            // Filter out self?
-            // val filteredApps = apps.filter { it.activityInfo.packageName != packageName } 
-
             runOnUiThread {
                 appAdapter = AppListAdapter(packageManager, apps)
                 rvApps.layoutManager = LinearLayoutManager(this)
@@ -67,6 +139,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startSession() {
+        if (permissionPanel.visibility == android.view.View.VISIBLE) {
+             Toast.makeText(this, "Please enable permissions first", Toast.LENGTH_SHORT).show()
+             return
+        }
+
         val durationStr = etDuration.text.toString()
         val pin = etPin.text.toString()
         val selectedApps = appAdapter.getSelectedPackages()
@@ -102,9 +179,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             startService(serviceIntent)
         }
-
-        // 3. Prompt user for Accessibility service if not enabled (Simple check)
-        // For now, assume user will enable it via Settings or we guide them in Phase 9
         
         Toast.makeText(this, "Session Started!", Toast.LENGTH_SHORT).show()
         

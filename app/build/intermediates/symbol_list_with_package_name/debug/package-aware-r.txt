@@ -3179,6 +3179,8 @@ id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+id btnEnableAccessibility
+id btnEnableAdmin
 id btnStart
 id btnUnlock
 id buttonPanel
@@ -3437,6 +3439,7 @@ id path
 id pathRelative
 id peekHeight
 id percent
+id permissionPanel
 id pin
 id position
 id postLayout

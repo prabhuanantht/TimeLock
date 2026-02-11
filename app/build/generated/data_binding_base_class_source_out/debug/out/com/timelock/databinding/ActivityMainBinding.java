@@ -24,6 +24,12 @@ public final class ActivityMainBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final Button btnEnableAccessibility;
+
+  @NonNull
+  public final Button btnEnableAdmin;
+
+  @NonNull
   public final Button btnStart;
 
   @NonNull
@@ -36,19 +42,27 @@ public final class ActivityMainBinding implements ViewBinding {
   public final EditText etPin;
 
   @NonNull
+  public final LinearLayout permissionPanel;
+
+  @NonNull
   public final RecyclerView rvApps;
 
   @NonNull
   public final TextView tvListHeader;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnStart,
-      @NonNull LinearLayout controlPanel, @NonNull EditText etDuration, @NonNull EditText etPin,
-      @NonNull RecyclerView rvApps, @NonNull TextView tvListHeader) {
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView,
+      @NonNull Button btnEnableAccessibility, @NonNull Button btnEnableAdmin,
+      @NonNull Button btnStart, @NonNull LinearLayout controlPanel, @NonNull EditText etDuration,
+      @NonNull EditText etPin, @NonNull LinearLayout permissionPanel, @NonNull RecyclerView rvApps,
+      @NonNull TextView tvListHeader) {
     this.rootView = rootView;
+    this.btnEnableAccessibility = btnEnableAccessibility;
+    this.btnEnableAdmin = btnEnableAdmin;
     this.btnStart = btnStart;
     this.controlPanel = controlPanel;
     this.etDuration = etDuration;
     this.etPin = etPin;
+    this.permissionPanel = permissionPanel;
     this.rvApps = rvApps;
     this.tvListHeader = tvListHeader;
   }
@@ -80,6 +94,18 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btnEnableAccessibility;
+      Button btnEnableAccessibility = ViewBindings.findChildViewById(rootView, id);
+      if (btnEnableAccessibility == null) {
+        break missingId;
+      }
+
+      id = R.id.btnEnableAdmin;
+      Button btnEnableAdmin = ViewBindings.findChildViewById(rootView, id);
+      if (btnEnableAdmin == null) {
+        break missingId;
+      }
+
       id = R.id.btnStart;
       Button btnStart = ViewBindings.findChildViewById(rootView, id);
       if (btnStart == null) {
@@ -104,6 +130,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.permissionPanel;
+      LinearLayout permissionPanel = ViewBindings.findChildViewById(rootView, id);
+      if (permissionPanel == null) {
+        break missingId;
+      }
+
       id = R.id.rvApps;
       RecyclerView rvApps = ViewBindings.findChildViewById(rootView, id);
       if (rvApps == null) {
@@ -116,8 +148,9 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, btnStart, controlPanel,
-          etDuration, etPin, rvApps, tvListHeader);
+      return new ActivityMainBinding((ConstraintLayout) rootView, btnEnableAccessibility,
+          btnEnableAdmin, btnStart, controlPanel, etDuration, etPin, permissionPanel, rvApps,
+          tvListHeader);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
