@@ -1,3 +1,4 @@
+com.timelock:xml/accessibility_service_config = 0x7f120000
 com.timelock:styleable/ViewStubCompat = 0x7f110096
 com.timelock:styleable/ViewBackgroundHelper = 0x7f110094
 com.timelock:styleable/ThemeEnforcement = 0x7f11008d

@@ -1,11 +1,15 @@
 [
     {
-        "merged": "com.timelock.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.timelock.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.timelock.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.timelock.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.timelock.app-merged_res-4:/xml_accessibility_service_config.xml.flat",
+        "source": "com.timelock.app-main-6:/xml/accessibility_service_config.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_activity_main.xml.flat",
