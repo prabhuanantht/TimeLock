@@ -1037,6 +1037,7 @@ com.timelock:layout/material_clock_period_toggle = 0x7f0b0038
 com.timelock:layout/material_clock_display_divider = 0x7f0b0037
 com.timelock:layout/m3_auto_complete_simple_item = 0x7f0b0033
 com.timelock:layout/m3_alert_dialog = 0x7f0b0030
+com.timelock:xml/device_admin_policies = 0x7f120001
 com.timelock:layout/ime_secondary_split_test_activity = 0x7f0b002f
 com.timelock:layout/ime_base_split_test_activity = 0x7f0b002e
 com.timelock:layout/design_text_input_start_icon = 0x7f0b002d

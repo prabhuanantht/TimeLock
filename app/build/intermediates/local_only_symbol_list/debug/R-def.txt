@@ -17,3 +17,4 @@ mipmap ic_launcher_round
 string app_name
 style Theme.TimeLock
 xml accessibility_service_config
+xml device_admin_policies
