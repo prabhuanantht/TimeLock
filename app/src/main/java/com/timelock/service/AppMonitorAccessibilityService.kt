@@ -22,7 +22,12 @@ class AppMonitorAccessibilityService : AccessibilityService() {
         
         if (!SessionManager.isAppAllowed(packageName)) {
             Log.w(TAG, "BLOCKED: $packageName")
-            // TODO: Launch BlockActivity (Phase 5)
+            
+            val intent = android.content.Intent(this, com.timelock.ui.BlockActivity::class.java)
+            intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            // intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION) // Optional
+            startActivity(intent)
         }
     }
 
