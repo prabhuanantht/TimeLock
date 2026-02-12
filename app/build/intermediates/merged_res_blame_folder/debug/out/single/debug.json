@@ -4,6 +4,10 @@
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/xml/accessibility_service_config.xml"
     },
     {
+        "merged": "com.timelock.app-merged_res-4:/layout_nav_header.xml.flat",
+        "source": "com.timelock.app-main-6:/layout/nav_header.xml"
+    },
+    {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_item_app.xml.flat",
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/item_app.xml"
     },
@@ -26,6 +30,10 @@
     {
         "merged": "com.timelock.app-merged_res-4:/layout_activity_main.xml.flat",
         "source": "com.timelock.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.timelock.app-merged_res-4:/menu_drawer_menu.xml.flat",
+        "source": "com.timelock.app-main-6:/menu/drawer_menu.xml"
     },
     {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_activity_main.xml.flat",

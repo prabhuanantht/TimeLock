@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@android:drawable/ic_menu_today"
+            android:title="Home" 
+            android:checked="true"/>
+        
+        <item
+            android:id="@+id/nav_permissions"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Check Permissions" />
+
+        <item
+             android:id="@+id/nav_theme_dark"
+             android:icon="@android:drawable/ic_menu_view"
+             android:title="Dark Mode" />
+             
+        <item
+             android:id="@+id/nav_theme_light"
+             android:icon="@android:drawable/ic_menu_view"
+             android:title="Light Mode" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="About" />
+    </group>
+</menu>

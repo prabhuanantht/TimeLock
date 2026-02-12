@@ -10,10 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.navigation.NavigationView;
 import com.timelock.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -21,7 +24,7 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final DrawerLayout rootView;
 
   @NonNull
   public final Button btnEnableAccessibility;
@@ -36,10 +39,16 @@ public final class ActivityMainBinding implements ViewBinding {
   public final LinearLayout controlPanel;
 
   @NonNull
+  public final DrawerLayout drawerLayout;
+
+  @NonNull
   public final EditText etDuration;
 
   @NonNull
   public final EditText etPin;
+
+  @NonNull
+  public final NavigationView navView;
 
   @NonNull
   public final LinearLayout permissionPanel;
@@ -48,28 +57,40 @@ public final class ActivityMainBinding implements ViewBinding {
   public final RecyclerView rvApps;
 
   @NonNull
+  public final SearchView searchView;
+
+  @NonNull
+  public final Toolbar toolbar;
+
+  @NonNull
   public final TextView tvListHeader;
 
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView,
+  private ActivityMainBinding(@NonNull DrawerLayout rootView,
       @NonNull Button btnEnableAccessibility, @NonNull Button btnEnableAdmin,
-      @NonNull Button btnStart, @NonNull LinearLayout controlPanel, @NonNull EditText etDuration,
-      @NonNull EditText etPin, @NonNull LinearLayout permissionPanel, @NonNull RecyclerView rvApps,
+      @NonNull Button btnStart, @NonNull LinearLayout controlPanel,
+      @NonNull DrawerLayout drawerLayout, @NonNull EditText etDuration, @NonNull EditText etPin,
+      @NonNull NavigationView navView, @NonNull LinearLayout permissionPanel,
+      @NonNull RecyclerView rvApps, @NonNull SearchView searchView, @NonNull Toolbar toolbar,
       @NonNull TextView tvListHeader) {
     this.rootView = rootView;
     this.btnEnableAccessibility = btnEnableAccessibility;
     this.btnEnableAdmin = btnEnableAdmin;
     this.btnStart = btnStart;
     this.controlPanel = controlPanel;
+    this.drawerLayout = drawerLayout;
     this.etDuration = etDuration;
     this.etPin = etPin;
+    this.navView = navView;
     this.permissionPanel = permissionPanel;
     this.rvApps = rvApps;
+    this.searchView = searchView;
+    this.toolbar = toolbar;
     this.tvListHeader = tvListHeader;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public DrawerLayout getRoot() {
     return rootView;
   }
 
@@ -118,6 +139,8 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      DrawerLayout drawerLayout = (DrawerLayout) rootView;
+
       id = R.id.etDuration;
       EditText etDuration = ViewBindings.findChildViewById(rootView, id);
       if (etDuration == null) {
@@ -127,6 +150,12 @@ public final class ActivityMainBinding implements ViewBinding {
       id = R.id.etPin;
       EditText etPin = ViewBindings.findChildViewById(rootView, id);
       if (etPin == null) {
+        break missingId;
+      }
+
+      id = R.id.nav_view;
+      NavigationView navView = ViewBindings.findChildViewById(rootView, id);
+      if (navView == null) {
         break missingId;
       }
 
@@ -142,15 +171,27 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.searchView;
+      SearchView searchView = ViewBindings.findChildViewById(rootView, id);
+      if (searchView == null) {
+        break missingId;
+      }
+
+      id = R.id.toolbar;
+      Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
+      if (toolbar == null) {
+        break missingId;
+      }
+
       id = R.id.tvListHeader;
       TextView tvListHeader = ViewBindings.findChildViewById(rootView, id);
       if (tvListHeader == null) {
         break missingId;
       }
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, btnEnableAccessibility,
-          btnEnableAdmin, btnStart, controlPanel, etDuration, etPin, permissionPanel, rvApps,
-          tvListHeader);
+      return new ActivityMainBinding((DrawerLayout) rootView, btnEnableAccessibility,
+          btnEnableAdmin, btnStart, controlPanel, drawerLayout, etDuration, etPin, navView,
+          permissionPanel, rvApps, searchView, toolbar, tvListHeader);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

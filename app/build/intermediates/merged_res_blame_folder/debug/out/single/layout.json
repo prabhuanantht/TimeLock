@@ -12,6 +12,10 @@
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/activity_block.xml"
     },
     {
+        "merged": "com.timelock.app-mergeDebugResources-3:/layout/nav_header.xml",
+        "source": "com.timelock.app-main-6:/layout/nav_header.xml"
+    },
+    {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-mergeDebugResources-3:/layout/item_app.xml",
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/item_app.xml"
     }

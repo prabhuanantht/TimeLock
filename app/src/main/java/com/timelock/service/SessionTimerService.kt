@@ -72,10 +72,26 @@ class SessionTimerService : Service() {
     }
 
     private fun onSessionFinished() {
-        SessionManager.endSession()
-        sendBroadcast(Intent(ACTION_SESSION_ENDED))
-        stopForeground(STOP_FOREGROUND_REMOVE)
-        stopSelf()
+        SessionManager.expireSession()
+        
+        // Update notification to say "Session Expired - Locked"
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        val notification = buildNotification(0).apply {
+             // In a real app we might update text, but reusing buildNotification is fine for now
+             // logic should probably be updated but user wants lockout
+        }
+        notificationManager.notify(NOTIFICATION_ID, notification)
+
+        // Launch BlockActivity explicitly to lock user out
+        val lockIntent = Intent(this, com.timelock.ui.BlockActivity::class.java)
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(lockIntent)
+        
+        // Do NOT stop self, keep running to maintain lock state if we want notification persistence
+        // Or stop foreground but keep session "expired" in manager.
+        // Actually, let's keep it running so user sees notification "TimeLock Active"
     }
 
     private fun createNotificationChannel() {

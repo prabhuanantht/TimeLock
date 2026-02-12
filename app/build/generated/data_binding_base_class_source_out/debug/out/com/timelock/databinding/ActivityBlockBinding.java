@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,19 +23,32 @@ public final class ActivityBlockBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final Button btnGoHome;
+
+  @NonNull
   public final Button btnUnlock;
 
   @NonNull
   public final EditText etPin;
 
   @NonNull
+  public final LinearLayout layoutUnlock;
+
+  @NonNull
+  public final TextView tvEmergency;
+
+  @NonNull
   public final TextView tvTitle;
 
-  private ActivityBlockBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnUnlock,
-      @NonNull EditText etPin, @NonNull TextView tvTitle) {
+  private ActivityBlockBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnGoHome,
+      @NonNull Button btnUnlock, @NonNull EditText etPin, @NonNull LinearLayout layoutUnlock,
+      @NonNull TextView tvEmergency, @NonNull TextView tvTitle) {
     this.rootView = rootView;
+    this.btnGoHome = btnGoHome;
     this.btnUnlock = btnUnlock;
     this.etPin = etPin;
+    this.layoutUnlock = layoutUnlock;
+    this.tvEmergency = tvEmergency;
     this.tvTitle = tvTitle;
   }
 
@@ -65,6 +79,12 @@ public final class ActivityBlockBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btnGoHome;
+      Button btnGoHome = ViewBindings.findChildViewById(rootView, id);
+      if (btnGoHome == null) {
+        break missingId;
+      }
+
       id = R.id.btnUnlock;
       Button btnUnlock = ViewBindings.findChildViewById(rootView, id);
       if (btnUnlock == null) {
@@ -77,13 +97,26 @@ public final class ActivityBlockBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.layoutUnlock;
+      LinearLayout layoutUnlock = ViewBindings.findChildViewById(rootView, id);
+      if (layoutUnlock == null) {
+        break missingId;
+      }
+
+      id = R.id.tvEmergency;
+      TextView tvEmergency = ViewBindings.findChildViewById(rootView, id);
+      if (tvEmergency == null) {
+        break missingId;
+      }
+
       id = R.id.tvTitle;
       TextView tvTitle = ViewBindings.findChildViewById(rootView, id);
       if (tvTitle == null) {
         break missingId;
       }
 
-      return new ActivityBlockBinding((ConstraintLayout) rootView, btnUnlock, etPin, tvTitle);
+      return new ActivityBlockBinding((ConstraintLayout) rootView, btnGoHome, btnUnlock, etPin,
+          layoutUnlock, tvEmergency, tvTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

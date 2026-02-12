@@ -13,13 +13,14 @@ import com.timelock.R
 
 class AppListAdapter(
     private val packageManager: PackageManager,
-    private val apps: List<ResolveInfo>
-) : RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
+    private val allApps: List<ResolveInfo>
+) : RecyclerView.Adapter<AppListAdapter.ViewHolder>(), android.widget.Filterable {
 
+    private var displayedApps: List<ResolveInfo> = allApps.sortedBy { it.loadLabel(packageManager).toString() }
     private val selectedPackages = mutableSetOf<String>()
 
     init {
-        // By default, maybe select none
+        // Initial sort
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,7 +36,7 @@ class AppListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val app = apps[position]
+        val app = displayedApps[position]
         val packageName = app.activityInfo.packageName
         
         holder.tvAppName.text = app.loadLabel(packageManager)
@@ -57,9 +58,33 @@ class AppListAdapter(
         }
     }
 
-    override fun getItemCount(): Int = apps.size
+    override fun getItemCount(): Int = displayedApps.size
 
     fun getSelectedPackages(): List<String> {
         return selectedPackages.toList()
+    }
+
+    override fun getFilter(): android.widget.Filter {
+        return object : android.widget.Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint?.toString() ?: ""
+                displayedApps = if (charString.isEmpty()) {
+                    allApps.sortedBy { it.loadLabel(packageManager).toString() }
+                } else {
+                    allApps.filter {
+                        val label = it.loadLabel(packageManager).toString()
+                        label.contains(charString, true)
+                    }.sortedBy { it.loadLabel(packageManager).toString() }
+                }
+                val filterResults = FilterResults()
+                filterResults.values = displayedApps
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                displayedApps = results?.values as List<ResolveInfo>
+                notifyDataSetChanged()
+            }
+        }
     }
 }

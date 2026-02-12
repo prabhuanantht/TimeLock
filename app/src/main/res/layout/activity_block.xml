@@ -21,30 +21,56 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <EditText
-        android:id="@+id/etPin"
-        android:layout_width="200dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:backgroundTint="@color/white"
-        android:hint="Enter PIN"
-        android:inputType="numberPassword"
-        android:textColor="@color/white"
-        android:textColorHint="#88FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/btnUnlock"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    <Button
-        android:id="@+id/btnUnlock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="UNLOCK SESSION"
+        android:orientation="vertical"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPin" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <Button
+            android:id="@+id/btnGoHome"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="GO HOME"
+            android:backgroundTint="@color/teal_700"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:id="@+id/tvEmergency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emergency Unlock?"
+            android:textColor="#AAA"
+            android:padding="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutUnlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/etPin"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="Enter PIN"
+                android:inputType="numberPassword"
+                android:textColor="@color/white"
+                android:textColorHint="#88FFFFFF" />
+
+            <Button
+                android:id="@+id/btnUnlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="END SESSION"
+                android:backgroundTint="#D32F2F"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
