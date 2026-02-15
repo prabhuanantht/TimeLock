@@ -41,7 +41,7 @@ TimeLock requires high-level permissions to function effectively:
 
 ## 📸 Screenshots
 
-*(Add your screenshots here)*
+*(will add soon)*
 
 ## 🤝 Contributing
 
