@@ -1,4 +1,4 @@
-# TimeLock - Focus Anywhere 🔒📱
+# TimeLock - Secured Access 🔒📱
 
 **TimeLock** is a powerful Android application designed to help you regain control of your time. By enforcing temporary guest sessions, it restricts access to your device, allowing only selected "Allowed Apps" to be used for a set duration.
 
