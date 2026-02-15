@@ -27,7 +27,7 @@
 
 1.  Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/TimeLock.git
+    git clone https://github.com/prabhuanantht/TimeLock.git
     ```
 2.  Open in **Android Studio**.
 3.  Build and Run on your device.
