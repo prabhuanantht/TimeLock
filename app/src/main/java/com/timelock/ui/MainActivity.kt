@@ -41,6 +41,8 @@ package com.timelock.ui
      private lateinit var drawerLayout: DrawerLayout
      private lateinit var navView: NavigationView
  
+     private lateinit var btnEnableOverlay: Button
+
      override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
          setContentView(R.layout.activity_main)
@@ -61,11 +63,29 @@ package com.timelock.ui
          drawerLayout.addDrawerListener(toggle)
          toggle.syncState()
          navView.setNavigationItemSelectedListener(this)
- 
+
+        // Setup Theme Switch
+        val themeItem = navView.menu.findItem(R.id.nav_theme_toggle)
+        val switchTheme = themeItem.actionView?.findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.switch_theme)
+        
+        // Set initial state
+        val currentMode = AppCompatDelegate.getDefaultNightMode()
+        switchTheme?.isChecked = currentMode == AppCompatDelegate.MODE_NIGHT_YES
+        
+        switchTheme?.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+    
+
          permissionPanel = findViewById(R.id.permissionPanel)
          controlPanel = findViewById(R.id.controlPanel)
          btnEnableAdmin = findViewById(R.id.btnEnableAdmin)
          btnEnableAccessibility = findViewById(R.id.btnEnableAccessibility)
+         btnEnableOverlay = findViewById(R.id.btnEnableOverlay)
          rvApps = findViewById(R.id.rvApps)
  
          setupAppList()
@@ -75,16 +95,10 @@ package com.timelock.ui
      override fun onNavigationItemSelected(item: android.view.MenuItem): Boolean {
          when (item.itemId) {
              R.id.nav_home -> {
-                 // Do nothing, we are here
+                 // Do nothing
              }
              R.id.nav_permissions -> {
                  checkPermissions(forceShow = true)
-             }
-             R.id.nav_theme_dark -> {
-                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-             }
-             R.id.nav_theme_light -> {
-                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
              }
              R.id.nav_about -> {
                  Toast.makeText(this, "TimeLock v1.0\nFocus on what matters.", Toast.LENGTH_LONG).show()
@@ -122,12 +136,14 @@ package com.timelock.ui
              
              btnEnableAdmin.isEnabled = !isAdmin
              btnEnableAccessibility.isEnabled = !isAccessibility
+             btnEnableOverlay.isEnabled = !isOverlay
              
              btnEnableAdmin.text = if (isAdmin) "Device Admin Enabled" else "Enable Device Admin"
              btnEnableAccessibility.text = if (isAccessibility) "Accessibility Enabled" else "Enable Accessibility"
+             btnEnableOverlay.text = if (isOverlay) "Overlay Enabled" else "Enable Display Over Apps"
              
-             if (!isOverlay) {
-                 if (forceShow) Toast.makeText(this, "Overlay Permission Missing!", Toast.LENGTH_SHORT).show()
+             if (!isOverlay && forceShow) {
+                 Toast.makeText(this, "Overlay Permission Missing!", Toast.LENGTH_SHORT).show()
              }
          }
      }
@@ -138,21 +154,20 @@ package com.timelock.ui
          return dpm.isAdminActive(componentName)
      }
  
-     private fun isAccessibilityServiceEnabled(): Boolean {
-         val accessibilityEnabled = Settings.Secure.getInt(
-             contentResolver,
-             Settings.Secure.ACCESSIBILITY_ENABLED, 0
-         )
-         if (accessibilityEnabled == 1) {
-             val service = "$packageName/${AppMonitorAccessibilityService::class.java.canonicalName}"
-             val settingValue = Settings.Secure.getString(
-                 contentResolver,
-                 Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
-             )
-             return settingValue?.contains(service) == true
-         }
-         return false
-     }
+    // Fix isAccessibilityServiceEnabled check
+    private fun isAccessibilityServiceEnabled(): Boolean {
+        val expectedComponentName = ComponentName(this, AppMonitorAccessibilityService::class.java)
+        val enabledServicesSetting = Settings.Secure.getString(contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES) ?: return false
+        val colonSplitter = android.text.TextUtils.SimpleStringSplitter(':')
+        colonSplitter.setString(enabledServicesSetting)
+        while (colonSplitter.hasNext()) {
+            val componentNameString = colonSplitter.next()
+            val enabledComponent = ComponentName.unflattenFromString(componentNameString)
+            if (enabledComponent != null && enabledComponent == expectedComponentName)
+                return true
+        }
+        return false
+    }
  
      private fun setupButtons() {
          btnEnableAdmin.setOnClickListener {
@@ -168,6 +183,34 @@ package com.timelock.ui
              startActivity(intent)
          }
  
+        btnEnableOverlay.setOnClickListener {
+             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
+             startActivity(intent)
+        }
+
+        val rgTimerMode = findViewById<android.widget.RadioGroup>(R.id.rgTimerMode)
+        // Logic: We need to hide the parent of etDuration.
+        // Actually etDuration is inside controlPanel, but we need to hide JUST the duration part. 
+        // In activity_main.xml, "Set Session Duration" + EditText are likely just direct children of controlPanel?
+        // Let's check: "TextView" + "EditText" are children. We should wrap them or target them.
+        // For now, let's target them by ID if possible, or assume they are children.
+        val tvDurationLabel = findViewById<TextView>(R.id.tvDurationLabel) // We need to add ID to the label!
+        val etDuration = findViewById<EditText>(R.id.etDuration)
+
+        rgTimerMode.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.rbIndividual) {
+                // Individual
+                appAdapter.setTimerMode(true)
+                tvDurationLabel.visibility = View.GONE
+                etDuration.visibility = View.GONE
+            } else {
+                // Combined
+                appAdapter.setTimerMode(false)
+                tvDurationLabel.visibility = View.VISIBLE
+                etDuration.visibility = View.VISIBLE
+            }
+        }
+
          findViewById<Button>(R.id.btnStart).setOnClickListener {
              startSession()
          }
@@ -179,44 +222,70 @@ package com.timelock.ui
               return
          }
  
-         val etDuration = findViewById<EditText>(R.id.etDuration)
-         val etPin = findViewById<EditText>(R.id.etPin)
- 
-         val durationStr = etDuration.text.toString()
-         val pin = etPin.text.toString()
- 
-         if (durationStr.isEmpty() || pin.length != 4) {
-             Toast.makeText(this, "Enter duration and 4-digit PIN", Toast.LENGTH_SHORT).show()
-             return
-         }
- 
-         val durationMins = durationStr.toLong()
-         val selectedApps = appAdapter.getSelectedPackages()
- 
-         if (selectedApps.isEmpty()) {
-             Toast.makeText(this, "Select at least one app", Toast.LENGTH_SHORT).show()
-             return
-         }
- 
-         // Start!!!
-         SessionManager.startSession(selectedApps, durationMins * 60 * 1000, pin)
-         
-         val serviceIntent = Intent(this, SessionTimerService::class.java)
-         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-             startForegroundService(serviceIntent)
-         } else {
-             startService(serviceIntent)
-         }
- 
-         Toast.makeText(this, "Session Started!", Toast.LENGTH_SHORT).show()
-         
-         // Go Home
-         val homeIntent = Intent(Intent.ACTION_MAIN)
-         homeIntent.addCategory(Intent.CATEGORY_HOME)
-         homeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-         startActivity(homeIntent)
-         finish() // Optional: finish MainActivity so user can't just back into it easily
-     }
+        val etPin = findViewById<EditText>(R.id.etPin)
+        val pin = etPin.text.toString()
+
+        if (pin.length != 4) {
+            Toast.makeText(this, "Enter 4-digit PIN", Toast.LENGTH_SHORT).show()
+            return
+        }
+        
+        val selectedApps = appAdapter.getSelectedPackages()
+        if (selectedApps.isEmpty()) {
+            Toast.makeText(this, "Select at least one app", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        var finalDurationMillis: Long = 0
+        val isIndividual = findViewById<android.widget.RadioButton>(R.id.rbIndividual).isChecked
+
+        if (isIndividual) {
+            // Individual Mode: Calculate duration based on MAX of individual timers for now
+            // Or sum? Usually "Lock session until X". If I set App A for 10m and App B for 20m, 
+            // the session should effectively manage that. 
+            // Current MVP: Take the MAXIMUM duration to keep session active.
+            val durations = appAdapter.getAppDurations()
+            if (durations.isEmpty()) {
+                 Toast.makeText(this, "Set duration for selected apps", Toast.LENGTH_SHORT).show()
+                 return
+            }
+            
+            val maxDuration = durations.values.maxOrNull() ?: 0
+            if (maxDuration <= 0) {
+                Toast.makeText(this, "Invalid duration", Toast.LENGTH_SHORT).show()
+                return
+            }
+            finalDurationMillis = maxDuration * 60 * 1000
+        } else {
+            // Combined Mode
+            val etDuration = findViewById<EditText>(R.id.etDuration)
+            val durationStr = etDuration.text.toString()
+            if (durationStr.isEmpty()) {
+                Toast.makeText(this, "Enter session duration", Toast.LENGTH_SHORT).show()
+                return
+            }
+            finalDurationMillis = durationStr.toLong() * 60 * 1000
+        }
+
+        // 1. Start Session
+        SessionManager.startSession(selectedApps, finalDurationMillis, pin)
+        
+        // 2. Start Timer Service
+        val serviceIntent = Intent(this, SessionTimerService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(serviceIntent)
+        } else {
+            startService(serviceIntent)
+        }
+
+        Toast.makeText(this, "Session Started!", Toast.LENGTH_SHORT).show()
+        
+        // 4. Enter Kiosk Mode
+        val lockIntent = Intent(this, BlockActivity::class.java)
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        startActivity(lockIntent)
+        finish()
+    }
  
      private fun setupAppList() {
          // Initialize SearchView

@@ -13,14 +13,11 @@
             android:title="Check Permissions" />
 
         <item
-             android:id="@+id/nav_theme_dark"
-             android:icon="@android:drawable/ic_menu_view"
-             android:title="Dark Mode" />
-             
-        <item
-             android:id="@+id/nav_theme_light"
-             android:icon="@android:drawable/ic_menu_view"
-             android:title="Light Mode" />
+            android:id="@+id/nav_theme_toggle"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="Dark Mode"
+            app:actionLayout="@layout/menu_item_switch" 
+            xmlns:app="http://schemas.android.com/apk/res-auto"/>
 
         <item
             android:id="@+id/nav_about"

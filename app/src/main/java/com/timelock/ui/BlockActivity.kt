@@ -7,11 +7,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.timelock.R
 import com.timelock.core.SessionManager
 import com.timelock.service.SessionTimerService
 
 class BlockActivity : AppCompatActivity() {
+
+    private lateinit var rvKioskApps: RecyclerView
+    private lateinit var adapter: KioskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,32 +25,24 @@ class BlockActivity : AppCompatActivity() {
         // Disable Back Button
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // Do nothing, consume the event
+                // Do nothing
             }
         })
 
-        val btnGoHome = findViewById<Button>(R.id.btnGoHome)
+        rvKioskApps = findViewById(R.id.rvKioskApps)
         val tvEmergency = findViewById<android.widget.TextView>(R.id.tvEmergency)
         val layoutUnlock = findViewById<android.widget.LinearLayout>(R.id.layoutUnlock)
         val etPin = findViewById<EditText>(R.id.etPin)
         val btnUnlock = findViewById<Button>(R.id.btnUnlock)
+        val bottomPanel = findViewById<android.widget.LinearLayout>(R.id.bottomPanel)
 
-        btnGoHome.setOnClickListener {
-            // Just go home, keeping session active
-            val homeIntent = Intent(Intent.ACTION_MAIN)
-            homeIntent.addCategory(Intent.CATEGORY_HOME)
-            homeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(homeIntent)
-            // We don't finish() here because we want to stay in back stack if needed, 
-            // but actually, since this activity is excluded from recents, going home is fine.
-            // But we shouldn't finish() because if the user comes back to the blocked app, 
-            // the service will launch this activity again anyway.
-        }
+        setupKioskApps()
 
         tvEmergency.setOnClickListener {
             layoutUnlock.visibility = android.view.View.VISIBLE
-            btnGoHome.visibility = android.view.View.GONE
             tvEmergency.visibility = android.view.View.GONE
+            // Hide apps when unlocking? Maybe not needed, but cleaner.
+            rvKioskApps.visibility = android.view.View.GONE
         }
 
         btnUnlock.setOnClickListener {
@@ -66,8 +63,40 @@ class BlockActivity : AppCompatActivity() {
         checkExpiryState()
     }
 
+    private fun setupKioskApps() {
+        // Get allowed apps
+        val allowedAppsSet = SessionManager.getAllowedApps()
+        val allowedAppsList = allowedAppsSet.toList().sortedBy { packageName -> 
+             try {
+                 packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, 0)).toString()
+             } catch (e: Exception) {
+                 packageName
+             }
+        }
+
+        adapter = KioskAdapter(this, packageManager, allowedAppsList) { packageName ->
+            launchApp(packageName)
+        }
+
+        rvKioskApps.layoutManager = GridLayoutManager(this, 3) // 3 columns
+        rvKioskApps.adapter = adapter
+    }
+
+    private fun launchApp(packageName: String) {
+        try {
+            val intent = packageManager.getLaunchIntentForPackage(packageName)
+            if (intent != null) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Cannot launch app", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, "Error launching app", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun checkExpiryState() {
-        val btnGoHome = findViewById<Button>(R.id.btnGoHome)
         val tvEmergency = findViewById<android.widget.TextView>(R.id.tvEmergency)
         val layoutUnlock = findViewById<android.widget.LinearLayout>(R.id.layoutUnlock)
         val tvTitle = findViewById<android.widget.TextView>(R.id.tvTitle)
@@ -76,23 +105,24 @@ class BlockActivity : AppCompatActivity() {
             tvTitle.text = "SESSION TIMER ENDED\nDEVICE LOCKED"
             tvTitle.setTextColor(android.graphics.Color.RED)
             
-            btnGoHome.visibility = android.view.View.GONE
+            rvKioskApps.visibility = android.view.View.GONE
             tvEmergency.visibility = android.view.View.GONE
             layoutUnlock.visibility = android.view.View.VISIBLE
+        } else {
+             // Ensure apps are visible if not expired (and not in emergency unlock mode)
+             if (layoutUnlock.visibility != android.view.View.VISIBLE) {
+                 rvKioskApps.visibility = android.view.View.VISIBLE
+             }
         }
     }
 
     private fun unlockSession() {
-        // End session core logic
         SessionManager.endSession()
         
-        // Stop the timer service
         val intent = Intent(this, SessionTimerService::class.java)
         stopService(intent)
 
         Toast.makeText(this, "Session Ended", Toast.LENGTH_SHORT).show()
-        
-        // Go back to Main or finish
         finish()
     }
 }

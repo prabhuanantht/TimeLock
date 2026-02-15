@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.timelock.R;
@@ -23,7 +24,7 @@ public final class ActivityBlockBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final Button btnGoHome;
+  public final LinearLayout bottomPanel;
 
   @NonNull
   public final Button btnUnlock;
@@ -35,19 +36,24 @@ public final class ActivityBlockBinding implements ViewBinding {
   public final LinearLayout layoutUnlock;
 
   @NonNull
+  public final RecyclerView rvKioskApps;
+
+  @NonNull
   public final TextView tvEmergency;
 
   @NonNull
   public final TextView tvTitle;
 
-  private ActivityBlockBinding(@NonNull ConstraintLayout rootView, @NonNull Button btnGoHome,
-      @NonNull Button btnUnlock, @NonNull EditText etPin, @NonNull LinearLayout layoutUnlock,
+  private ActivityBlockBinding(@NonNull ConstraintLayout rootView,
+      @NonNull LinearLayout bottomPanel, @NonNull Button btnUnlock, @NonNull EditText etPin,
+      @NonNull LinearLayout layoutUnlock, @NonNull RecyclerView rvKioskApps,
       @NonNull TextView tvEmergency, @NonNull TextView tvTitle) {
     this.rootView = rootView;
-    this.btnGoHome = btnGoHome;
+    this.bottomPanel = bottomPanel;
     this.btnUnlock = btnUnlock;
     this.etPin = etPin;
     this.layoutUnlock = layoutUnlock;
+    this.rvKioskApps = rvKioskApps;
     this.tvEmergency = tvEmergency;
     this.tvTitle = tvTitle;
   }
@@ -79,9 +85,9 @@ public final class ActivityBlockBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnGoHome;
-      Button btnGoHome = ViewBindings.findChildViewById(rootView, id);
-      if (btnGoHome == null) {
+      id = R.id.bottomPanel;
+      LinearLayout bottomPanel = ViewBindings.findChildViewById(rootView, id);
+      if (bottomPanel == null) {
         break missingId;
       }
 
@@ -103,6 +109,12 @@ public final class ActivityBlockBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.rvKioskApps;
+      RecyclerView rvKioskApps = ViewBindings.findChildViewById(rootView, id);
+      if (rvKioskApps == null) {
+        break missingId;
+      }
+
       id = R.id.tvEmergency;
       TextView tvEmergency = ViewBindings.findChildViewById(rootView, id);
       if (tvEmergency == null) {
@@ -115,8 +127,8 @@ public final class ActivityBlockBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityBlockBinding((ConstraintLayout) rootView, btnGoHome, btnUnlock, etPin,
-          layoutUnlock, tvEmergency, tvTitle);
+      return new ActivityBlockBinding((ConstraintLayout) rootView, bottomPanel, btnUnlock, etPin,
+          layoutUnlock, rvKioskApps, tvEmergency, tvTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

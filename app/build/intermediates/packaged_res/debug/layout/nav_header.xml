@@ -9,10 +9,10 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="72dp"
-        android:layout_height="72dp"
-        android:src="@mipmap/ic_launcher_round"
-        android:contentDescription="App Logo" />
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_logo_timelock"
+        android:contentDescription="TimeLock Logo" />
 
     <TextView
         android:layout_width="wrap_content"

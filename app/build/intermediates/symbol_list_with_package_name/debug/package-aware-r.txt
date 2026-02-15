@@ -2998,6 +2998,7 @@ drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
+drawable ic_logo_timelock
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
@@ -3175,13 +3176,14 @@ id beginning
 id bestChoice
 id blocking
 id bottom
+id bottomPanel
 id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
 id btnEnableAccessibility
 id btnEnableAdmin
-id btnGoHome
+id btnEnableOverlay
 id btnStart
 id btnUnlock
 id buttonPanel
@@ -3268,6 +3270,7 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id etAppDuration
 id etDuration
 id etPin
 id exitUntilCollapsed
@@ -3396,8 +3399,7 @@ id multiply
 id nav_about
 id nav_home
 id nav_permissions
-id nav_theme_dark
-id nav_theme_light
+id nav_theme_toggle
 id nav_view
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
@@ -3457,9 +3459,12 @@ id progress_circular
 id progress_horizontal
 id radio
 id ratio
+id rbCombined
+id rbIndividual
 id rectangles
 id report_drawn
 id reverseSawtooth
+id rgTimerMode
 id right
 id rightToLeft
 id right_icon
@@ -3467,6 +3472,7 @@ id right_side
 id rounded
 id row_index_key
 id rvApps
+id rvKioskApps
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -3529,6 +3535,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id switch_theme
 id tabMode
 id tag_accessibility_actions
 id tag_accessibility_clickable_spans
@@ -3577,6 +3584,7 @@ id transition_scene_layoutid_cache
 id transition_transform
 id triangle
 id tvAppName
+id tvDurationLabel
 id tvEmergency
 id tvListHeader
 id tvTitle
@@ -3738,6 +3746,7 @@ layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_app
+layout item_kiosk_app
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -3757,6 +3766,7 @@ layout material_time_input
 layout material_timepicker
 layout material_timepicker_dialog
 layout material_timepicker_textinput_display
+layout menu_item_switch
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title

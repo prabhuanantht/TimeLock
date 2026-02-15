@@ -34,6 +34,35 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Timer Mode"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rgTimerMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <RadioButton
+                    android:id="@+id/rbCombined"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Combined"
+                    android:checked="true"
+                    android:layout_marginEnd="16dp"/>
+
+                <RadioButton
+                    android:id="@+id/rbIndividual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Individual" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tvDurationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Set Session Duration (Minutes)" />
 
             <EditText
@@ -84,16 +113,26 @@
                 android:textStyle="bold"/>
 
             <Button
+                android:id="@+id/btnEnableOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enable Display Over Apps"
+                android:backgroundTint="#FF9800"
+                android:layout_marginTop="8dp" />
+
+            <Button
                 android:id="@+id/btnEnableAdmin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Enable Device Admin" />
+                android:text="Enable Device Admin"
+                android:layout_marginTop="8dp" />
 
             <Button
                 android:id="@+id/btnEnableAccessibility"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Enable Accessibility" />
+                android:text="Enable Accessibility"
+                android:layout_marginTop="8dp" />
         </LinearLayout>
 
         <TextView
