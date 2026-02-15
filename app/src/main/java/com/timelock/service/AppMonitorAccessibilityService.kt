@@ -20,6 +20,10 @@ class AppMonitorAccessibilityService : AccessibilityService() {
         
         // Optimization: Don't check if it's our own app (handled in SessionManager, but good to have quick exit here too if needed)
         
+        if (packageName == "android" || packageName == "com.android.systemui" || packageName.contains("inputmethod")) {
+            return
+        }
+        
         if (!SessionManager.isAppAllowed(packageName)) {
             Log.w(TAG, "BLOCKED: $packageName")
             

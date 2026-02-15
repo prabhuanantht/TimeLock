@@ -1,19 +1,15 @@
 [
     {
-        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/xml_accessibility_service_config.xml.flat",
-        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/xml/accessibility_service_config.xml"
-    },
-    {
-        "merged": "com.timelock.app-merged_res-4:/layout_nav_header.xml.flat",
-        "source": "com.timelock.app-main-6:/layout/nav_header.xml"
-    },
-    {
-        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_item_app.xml.flat",
-        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/item_app.xml"
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/menu_drawer_menu.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/menu/drawer_menu.xml"
     },
     {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/drawable_ic_logo_timelock.png.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/drawable/ic_logo_timelock.png"
     },
     {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_activity_block.xml.flat",
@@ -24,19 +20,35 @@
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/xml_device_admin_policies.xml.flat",
-        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/xml/device_admin_policies.xml"
-    },
-    {
-        "merged": "com.timelock.app-merged_res-4:/layout_activity_main.xml.flat",
-        "source": "com.timelock.app-main-6:/layout/activity_main.xml"
-    },
-    {
-        "merged": "com.timelock.app-merged_res-4:/menu_drawer_menu.xml.flat",
-        "source": "com.timelock.app-main-6:/menu/drawer_menu.xml"
+        "merged": "com.timelock.app-merged_res-4:/drawable_ic_logo_timelock.png.flat",
+        "source": "com.timelock.app-main-6:/drawable/ic_logo_timelock.png"
     },
     {
         "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_activity_main.xml.flat",
         "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/xml_accessibility_service_config.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/xml/accessibility_service_config.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_item_kiosk_app.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/item_kiosk_app.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_item_app.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/item_app.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_nav_header.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/nav_header.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/xml_device_admin_policies.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/xml/device_admin_policies.xml"
+    },
+    {
+        "merged": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-merged_res-4:/layout_menu_item_switch.xml.flat",
+        "source": "/Users/ananth/.gradle/daemon/8.10/com.timelock.app-main-6:/layout/menu_item_switch.xml"
     }
 ]

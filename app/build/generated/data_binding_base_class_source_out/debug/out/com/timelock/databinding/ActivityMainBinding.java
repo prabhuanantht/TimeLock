@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,6 +35,9 @@ public final class ActivityMainBinding implements ViewBinding {
   public final Button btnEnableAdmin;
 
   @NonNull
+  public final Button btnEnableOverlay;
+
+  @NonNull
   public final Button btnStart;
 
   @NonNull
@@ -54,6 +59,15 @@ public final class ActivityMainBinding implements ViewBinding {
   public final LinearLayout permissionPanel;
 
   @NonNull
+  public final RadioButton rbCombined;
+
+  @NonNull
+  public final RadioButton rbIndividual;
+
+  @NonNull
+  public final RadioGroup rgTimerMode;
+
+  @NonNull
   public final RecyclerView rvApps;
 
   @NonNull
@@ -63,18 +77,24 @@ public final class ActivityMainBinding implements ViewBinding {
   public final Toolbar toolbar;
 
   @NonNull
+  public final TextView tvDurationLabel;
+
+  @NonNull
   public final TextView tvListHeader;
 
   private ActivityMainBinding(@NonNull DrawerLayout rootView,
       @NonNull Button btnEnableAccessibility, @NonNull Button btnEnableAdmin,
-      @NonNull Button btnStart, @NonNull LinearLayout controlPanel,
-      @NonNull DrawerLayout drawerLayout, @NonNull EditText etDuration, @NonNull EditText etPin,
-      @NonNull NavigationView navView, @NonNull LinearLayout permissionPanel,
+      @NonNull Button btnEnableOverlay, @NonNull Button btnStart,
+      @NonNull LinearLayout controlPanel, @NonNull DrawerLayout drawerLayout,
+      @NonNull EditText etDuration, @NonNull EditText etPin, @NonNull NavigationView navView,
+      @NonNull LinearLayout permissionPanel, @NonNull RadioButton rbCombined,
+      @NonNull RadioButton rbIndividual, @NonNull RadioGroup rgTimerMode,
       @NonNull RecyclerView rvApps, @NonNull SearchView searchView, @NonNull Toolbar toolbar,
-      @NonNull TextView tvListHeader) {
+      @NonNull TextView tvDurationLabel, @NonNull TextView tvListHeader) {
     this.rootView = rootView;
     this.btnEnableAccessibility = btnEnableAccessibility;
     this.btnEnableAdmin = btnEnableAdmin;
+    this.btnEnableOverlay = btnEnableOverlay;
     this.btnStart = btnStart;
     this.controlPanel = controlPanel;
     this.drawerLayout = drawerLayout;
@@ -82,9 +102,13 @@ public final class ActivityMainBinding implements ViewBinding {
     this.etPin = etPin;
     this.navView = navView;
     this.permissionPanel = permissionPanel;
+    this.rbCombined = rbCombined;
+    this.rbIndividual = rbIndividual;
+    this.rgTimerMode = rgTimerMode;
     this.rvApps = rvApps;
     this.searchView = searchView;
     this.toolbar = toolbar;
+    this.tvDurationLabel = tvDurationLabel;
     this.tvListHeader = tvListHeader;
   }
 
@@ -127,6 +151,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.btnEnableOverlay;
+      Button btnEnableOverlay = ViewBindings.findChildViewById(rootView, id);
+      if (btnEnableOverlay == null) {
+        break missingId;
+      }
+
       id = R.id.btnStart;
       Button btnStart = ViewBindings.findChildViewById(rootView, id);
       if (btnStart == null) {
@@ -165,6 +195,24 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.rbCombined;
+      RadioButton rbCombined = ViewBindings.findChildViewById(rootView, id);
+      if (rbCombined == null) {
+        break missingId;
+      }
+
+      id = R.id.rbIndividual;
+      RadioButton rbIndividual = ViewBindings.findChildViewById(rootView, id);
+      if (rbIndividual == null) {
+        break missingId;
+      }
+
+      id = R.id.rgTimerMode;
+      RadioGroup rgTimerMode = ViewBindings.findChildViewById(rootView, id);
+      if (rgTimerMode == null) {
+        break missingId;
+      }
+
       id = R.id.rvApps;
       RecyclerView rvApps = ViewBindings.findChildViewById(rootView, id);
       if (rvApps == null) {
@@ -183,6 +231,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tvDurationLabel;
+      TextView tvDurationLabel = ViewBindings.findChildViewById(rootView, id);
+      if (tvDurationLabel == null) {
+        break missingId;
+      }
+
       id = R.id.tvListHeader;
       TextView tvListHeader = ViewBindings.findChildViewById(rootView, id);
       if (tvListHeader == null) {
@@ -190,8 +244,9 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((DrawerLayout) rootView, btnEnableAccessibility,
-          btnEnableAdmin, btnStart, controlPanel, drawerLayout, etDuration, etPin, navView,
-          permissionPanel, rvApps, searchView, toolbar, tvListHeader);
+          btnEnableAdmin, btnEnableOverlay, btnStart, controlPanel, drawerLayout, etDuration, etPin,
+          navView, permissionPanel, rbCombined, rbIndividual, rgTimerMode, rvApps, searchView,
+          toolbar, tvDurationLabel, tvListHeader);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

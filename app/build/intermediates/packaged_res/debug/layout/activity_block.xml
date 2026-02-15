@@ -11,31 +11,33 @@
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ACCESS RESTRICTED"
+        android:text="KIOSK MODE"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/etPin"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        android:layout_marginTop="48dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvKioskApps"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@id/bottomPanel"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <LinearLayout
+        android:id="@+id/bottomPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
-
-        <Button
-            android:id="@+id/btnGoHome"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="GO HOME"
-            android:backgroundTint="@color/teal_700"
-            android:layout_marginBottom="32dp"/>
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/tvEmergency"

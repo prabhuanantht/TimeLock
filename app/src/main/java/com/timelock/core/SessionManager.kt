@@ -83,6 +83,10 @@ object SessionManager {
         return allowedApps.contains(packageName)
     }
 
+    fun getAllowedApps(): Set<String> {
+        return prefs.getStringSet(KEY_ALLOWED_APPS, emptySet()) ?: emptySet()
+    }
+
     fun validatePin(inputPin: String): Boolean {
         val storedHash = prefs.getString(KEY_PIN_HASH, null) ?: return false
         return hashPin(inputPin) == storedHash

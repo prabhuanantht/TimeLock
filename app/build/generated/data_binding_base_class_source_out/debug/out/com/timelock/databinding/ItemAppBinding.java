@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,15 +26,19 @@ public final class ItemAppBinding implements ViewBinding {
   public final CheckBox cbSelected;
 
   @NonNull
+  public final EditText etAppDuration;
+
+  @NonNull
   public final ImageView ivIcon;
 
   @NonNull
   public final TextView tvAppName;
 
   private ItemAppBinding(@NonNull LinearLayout rootView, @NonNull CheckBox cbSelected,
-      @NonNull ImageView ivIcon, @NonNull TextView tvAppName) {
+      @NonNull EditText etAppDuration, @NonNull ImageView ivIcon, @NonNull TextView tvAppName) {
     this.rootView = rootView;
     this.cbSelected = cbSelected;
+    this.etAppDuration = etAppDuration;
     this.ivIcon = ivIcon;
     this.tvAppName = tvAppName;
   }
@@ -71,6 +76,12 @@ public final class ItemAppBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.etAppDuration;
+      EditText etAppDuration = ViewBindings.findChildViewById(rootView, id);
+      if (etAppDuration == null) {
+        break missingId;
+      }
+
       id = R.id.ivIcon;
       ImageView ivIcon = ViewBindings.findChildViewById(rootView, id);
       if (ivIcon == null) {
@@ -83,7 +94,8 @@ public final class ItemAppBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemAppBinding((LinearLayout) rootView, cbSelected, ivIcon, tvAppName);
+      return new ItemAppBinding((LinearLayout) rootView, cbSelected, etAppDuration, ivIcon,
+          tvAppName);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
